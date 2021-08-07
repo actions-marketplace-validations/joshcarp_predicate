@@ -5,9 +5,15 @@ inputs:
   gh_token:
     description: 'repo access token'
     required: true
+  gh_owner:
+    description: 'repo owner'
+    required: true
+  gh_repo:
+    description: 'repo'
+    required: true
 runs:
   using: 'docker'
-  image: 'gcr.'
+  image: 'gcr.io/joshcarp/gh-issue-automation:latest'
 branding:
   icon: 'pie-chart'
   color: 'gray-dark'

@@ -9,7 +9,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      - name: Get version
+        id: get_version
+        run: |
+          echo ::set-output name=version::${GITHUB_REF#refs/*/}
       - name: Setup - gcloud / gsutil
         uses: google-github-actions/setup-gcloud@master
         with:
@@ -20,5 +23,8 @@ jobs:
         run: gcloud auth configure-docker
       - name: Build and push docker image
         run: |
-          docker build . -t gcr.io/joshcarp/gh-issue-automation:latest
+          docker build . -t dockerimage
+          docker tag dockerimage gcr.io/joshcarp/gh-issue-automation:latest
           docker push gcr.io/joshcarp/gh-issue-automation:latest
+          docker tag dockerimage gcr.io/joshcarp/gh-issue-automation:${{ steps.get_version.outputs.version }}
+          docker push gcr.io/joshcarp/gh-issue-automation:${{ steps.get_version.outputs.version }}
