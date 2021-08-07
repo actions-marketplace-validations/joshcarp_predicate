@@ -30,15 +30,21 @@ func main() {
 			cmd := exec.Command("bash", "-c", cmdstring)
 			output, err := cmd.Output()
 			if err == nil {
-				client.Issues.Edit(ctx, cfg.Owner, cfg.Repo, *e.Number, &github.IssueRequest{
+				_, _, err = client.Issues.Edit(ctx, cfg.Owner, cfg.Repo, *e.Number, &github.IssueRequest{
 					State: prt("closed"),
 				})
-				client.Issues.CreateComment(ctx, cfg.Owner, cfg.Repo, *e.Number, &github.IssueComment{
+				if err != nil {
+					log.Println(err)
+				}
+				_, _, err = client.Issues.CreateComment(ctx, cfg.Owner, cfg.Repo, *e.Number, &github.IssueComment{
 					Body: prt(MustWithTemplate(completed, nil,
 						"command", func() interface{} { return cmdstring },
 						"output", func() interface{} { return string(output) },
 					)),
 				})
+				if err != nil {
+					log.Println(err)
+				}
 			}
 		}
 	}
