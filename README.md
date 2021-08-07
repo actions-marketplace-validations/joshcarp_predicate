@@ -8,13 +8,15 @@ Add predicates to github issues and automatically close issues if a predicate is
 
 ### Issue example
 ```
-This is a description
 
+  This is a description
+  
+  
+   ```predicate <- this codeblock will be run as a predicate
+   curl https://google.com
+     ```
 
-    ```predicate
-    curl https://google.com
-    ```
 ```
 
-
+### Example
 ![img.png](img.png)
