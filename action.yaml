@@ -1,0 +1,13 @@
+name: 'github issue automation'
+description: 'Run checks within github issues'
+author: 'joshcarp'
+inputs:
+  gh_token:
+    description: 'repo access token'
+    required: true
+runs:
+  using: 'docker'
+  image: 'gcr.'
+branding:
+  icon: 'pie-chart'
+  color: 'gray-dark'

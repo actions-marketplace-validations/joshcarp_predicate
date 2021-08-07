@@ -1,0 +1,24 @@
+name: deploy
+
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup - gcloud / gsutil
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+          export_default_credentials: true
+          project_id: joshcarp
+      - name: gcloud
+        run: gcloud auth configure-docker
+      - name: Build and push docker image
+        run: |
+          docker build . -t gcr.io/joshcarp/gh-issue-automation:latest
+          docker push gcr.io/joshcarp/gh-issue-automation:latest

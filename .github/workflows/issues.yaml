@@ -1,7 +1,5 @@
-name: bump version
+name: github issue automation
 on:
-  issues:
-    types: [opened, edited, milestoned]
   schedule:
     - cron:  '* * * * *'
 
