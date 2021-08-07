@@ -17,10 +17,10 @@ import (
 
 func main() {
 	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: os.Getenv("GH_TOKEN")})
+	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: os.Getenv("INPUT_GH_TOKEN")})
 	tc := oauth2.NewClient(ctx, ts)
 	client := github.NewClient(tc)
-	list, _, err := client.Issues.ListByRepo(ctx, os.Getenv("GH_OWNER"), os.Getenv("GH_REPO"), &github.IssueListByRepoOptions{
+	list, _, err := client.Issues.ListByRepo(ctx, os.Getenv("INPUT_GH_OWNER"), os.Getenv("INPUT_GH_REPO"), &github.IssueListByRepoOptions{
 		State: "open",
 	})
 	if err != nil {
@@ -32,10 +32,10 @@ func main() {
 			cmd := exec.Command("bash", "-c", cmdstring)
 			output, err := cmd.Output()
 			if err == nil {
-				client.Issues.Edit(ctx, os.Getenv("GH_OWNER"), os.Getenv("GH_REPO"), *e.Number, &github.IssueRequest{
+				client.Issues.Edit(ctx, os.Getenv("INPUT_GH_OWNER"), os.Getenv("INPUT_GH_REPO"), *e.Number, &github.IssueRequest{
 					State: prt("closed"),
 				})
-				fmt.Println(client.Issues.CreateComment(ctx, os.Getenv("GH_OWNER"), os.Getenv("GH_REPO"), *e.Number, &github.IssueComment{
+				fmt.Println(client.Issues.CreateComment(ctx, os.Getenv("INPUT_GH_OWNER"), os.Getenv("INPUT_GH_REPO"), *e.Number, &github.IssueComment{
 					Body: prt(MustWithTemplate(completed, nil,
 						"command", func() interface{} { return cmdstring },
 						"output", func() interface{} { return string(output) },
