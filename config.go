@@ -8,8 +8,8 @@ import (
 )
 
 type Config struct {
-	Token     string `envconfig:"INPUT_GITHUB_TOKEN"`
-	RepoOwner string `envconfig:"INPUT_GITHUB_REPOSITORY"`
+	Token     string `envconfig:"INPUT_TOKEN"`
+	RepoOwner string `envconfig:"INPUT_REPOSITORY"`
 	Repo      string
 	Owner     string
 }
