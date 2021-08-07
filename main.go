@@ -27,6 +27,9 @@ func main() {
 	for _, e := range list {
 		if e.Body != nil {
 			cmdstring := ParseIssue(*e.Body)
+			if cmdstring == ""{
+				continue
+			}
 			cmd := exec.Command("bash", "-c", cmdstring)
 			output, err := cmd.Output()
 			if err == nil {

@@ -14,7 +14,7 @@ func TestParseIssue(t *testing.T) {
 		{
 			name: "simple-test",
 			args: args{
-				description: "foobar\nm\n\n```test\necho whatever\n```",
+				description: "foobar\nm\n\n```predicate\necho whatever\n```",
 			},
 			want: "echo whatever\n",
 		},
@@ -28,14 +28,14 @@ func TestParseIssue(t *testing.T) {
 		{
 			name: "multiple-codeblocks",
 			args: args{
-				description: "foobar\nm\n\n```test\necho whatever\n```\n```test\necho blah\n```",
+				description: "foobar\nm\n\n```predicate\necho whatever\n```\n```predicate\necho blah\n```",
 			},
 			want: "echo whatever\n",
 		},
 		{
 			name: "carriage-return",
 			args: args{
-				description: "foobar\r\nm\r\n\r\n```test\r\nexit 1\r\n```",
+				description: "foobar\r\nm\r\n\r\n```predicate\r\nexit 1\r\n```",
 			},
 			want: "exit 1\n",
 		},
