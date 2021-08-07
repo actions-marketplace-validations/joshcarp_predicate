@@ -2,6 +2,8 @@ name: bump version
 on:
   issues:
     types: [opened, edited, milestoned]
+  schedule:
+    - cron: '* * * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
