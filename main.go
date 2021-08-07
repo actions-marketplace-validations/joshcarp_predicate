@@ -64,7 +64,7 @@ func ParseIssue(description string) string {
 		if !ok {
 			return ast.GoToNext
 		}
-		if string(leaf.Info) != "test" {
+		if string(leaf.Info) != "predicate" {
 			return ast.GoToNext
 		}
 		codeblock = string(leaf.Literal)
