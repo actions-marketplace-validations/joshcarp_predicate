@@ -18,7 +18,7 @@ inputs:
     required: false
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://gcr.io/joshcarp/predicate:latest'
 branding:
   icon: 'pie-chart'
   color: 'gray-dark'
