@@ -1,1 +1,1 @@
-# gh-issue-automation
+# predicate

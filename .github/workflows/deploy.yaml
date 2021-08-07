@@ -24,7 +24,7 @@ jobs:
       - name: Build and push docker image
         run: |
           docker build . -t dockerimage
-          docker tag dockerimage gcr.io/joshcarp/gh-issue-automation:latest
-          docker push gcr.io/joshcarp/gh-issue-automation:latest
-          docker tag dockerimage gcr.io/joshcarp/gh-issue-automation:${{ steps.get_version.outputs.version }}
-          docker push gcr.io/joshcarp/gh-issue-automation:${{ steps.get_version.outputs.version }}
+          docker tag dockerimage gcr.io/joshcarp/predicate:latest
+          docker push gcr.io/joshcarp/predicate:latest
+          docker tag dockerimage gcr.io/joshcarp/predicate:${{ steps.get_version.outputs.version }}
+          docker push gcr.io/joshcarp/predicate:${{ steps.get_version.outputs.version }}

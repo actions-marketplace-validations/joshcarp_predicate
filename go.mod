@@ -1,4 +1,4 @@
-module github.com/joshcarp/gh-issue-automation
+module github.com/joshcarp/predicate
 
 go 1.16
 
