@@ -41,7 +41,7 @@ func main() {
 
 	prComment := "\nFixes: "
 	var payload Payload
-	if cfg.Event == "pull-request" && cfg.EventPath != "" {
+	if cfg.Event == "pull_request" && cfg.EventPath != "" {
 		payload, err = GetPayload(cfg.EventPath)
 		log.Println(payload)
 		if err != nil {
@@ -57,7 +57,7 @@ func main() {
 			cmd := exec.Command("bash", "-c", cmdstring)
 			output, err := cmd.Output()
 			if err == nil {
-				if cfg.Event == "pull-request" {
+				if cfg.Event == "pull_request" {
 					prComment += " " + e.GetURL()
 					continue
 				}
@@ -80,7 +80,7 @@ func main() {
 		}
 	}
 	payload.PullRequest.Number = 7
-	if cfg.Event == "pull-request" {
+	if cfg.Event == "pull_request" {
 		pr, _, err := client.PullRequests.Get(ctx, cfg.Owner, cfg.Repo, payload.PullRequest.Number)
 		description := pr.GetBody()
 		description += prComment
