@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/kelseyhightower/envconfig"
@@ -14,6 +16,27 @@ type Config struct {
 	Actor     string `envconfig:"GITHUB_ACTOR"`
 	Repo      string
 	Owner     string
+	EventPath string `envconfig:"GITHUB_EVENT_PATH"`
+}
+
+type Payload struct {
+	PullRequest PullRequest `json:"payload"`
+}
+type PullRequest struct {
+	Action string `json:"action"`
+	Number int    `json:"number"`
+}
+
+func GetPayload(eventPath string) (Payload, error) {
+	bytes, err := os.ReadFile(eventPath)
+	if err != nil {
+		return Payload{}, err
+	}
+	var payload Payload
+	if err := json.Unmarshal(bytes, &payload); err != nil {
+		return Payload{}, err
+	}
+	return payload, nil
 }
 
 func Env() (Config, error) {
