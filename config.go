@@ -21,9 +21,6 @@ type Config struct {
 }
 
 type Payload struct {
-	PullRequest PullRequest `json:"payload"`
-}
-type PullRequest struct {
 	Action string `json:"action"`
 	Number int    `json:"number"`
 }

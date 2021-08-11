@@ -79,16 +79,15 @@ func main() {
 			}
 		}
 	}
-	payload.PullRequest.Number = 7
 	if cfg.Event == "pull_request" {
-		pr, _, err := client.PullRequests.Get(ctx, cfg.Owner, cfg.Repo, payload.PullRequest.Number)
+		pr, _, err := client.PullRequests.Get(ctx, cfg.Owner, cfg.Repo, payload.Number)
 		description := pr.GetBody()
 		description += prComment
 		pr.Body = &description
 		if err != nil {
 			log.Fatal(err)
 		}
-		_, _, err = client.PullRequests.Edit(ctx, cfg.Owner, cfg.Repo, payload.PullRequest.Number, pr)
+		_, _, err = client.PullRequests.Edit(ctx, cfg.Owner, cfg.Repo, payload.Number, pr)
 		if err != nil {
 			log.Fatal(err)
 		}
