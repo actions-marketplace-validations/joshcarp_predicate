@@ -25,7 +25,7 @@ func main() {
 	}
 	var isCollaborator bool
 	for _, collaborator := range collaborators {
-		if collaborator.Name != nil && *collaborator.Name == cfg.Actor {
+		if collaborator.GetLogin() == cfg.Actor {
 			isCollaborator = true
 			break
 		}

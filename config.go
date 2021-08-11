@@ -24,7 +24,7 @@ func Env() (Config, error) {
 	}
 	repoOwner := strings.Split(cfg.RepoOwner, "/")
 	if len(repoOwner) != 2 {
-		return Config{}, fmt.Errorf("INPUT_GITHUB_REPOSITORY not set correctly")
+		return Config{}, fmt.Errorf("INPUT_REPOSITORY not set correctly")
 	}
 	cfg.Owner, cfg.Repo = repoOwner[0], repoOwner[1]
 	return cfg, nil
