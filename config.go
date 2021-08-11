@@ -10,6 +10,8 @@ import (
 type Config struct {
 	Token     string `envconfig:"INPUT_TOKEN"`
 	RepoOwner string `envconfig:"INPUT_REPOSITORY"`
+	Event     string `envconfig:"GITHUB_EVENT_NAME"`
+	Actor     string `envconfig:"GITHUB_ACTOR"`
 	Repo      string
 	Owner     string
 }

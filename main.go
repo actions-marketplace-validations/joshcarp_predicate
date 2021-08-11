@@ -18,16 +18,28 @@ func main() {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: cfg.Token})
 	tc := oauth2.NewClient(ctx, ts)
 	client := github.NewClient(tc)
-	list, _, err := client.Issues.ListByRepo(ctx, cfg.Owner, cfg.Repo, &github.IssueListByRepoOptions{
-		State: "open",
-	})
+	collaborators, _, err := client.Repositories.ListCollaborators(ctx, cfg.Owner, cfg.Repo, &github.ListCollaboratorsOptions{ListOptions: github.ListOptions{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	var isCollaborator bool
+	for _, collaborator := range collaborators {
+		if collaborator.Name != nil && *collaborator.Name == cfg.Actor {
+			isCollaborator = true
+			break
+		}
+	}
+	if !isCollaborator {
+		return
+	}
+	list, _, err := client.Issues.ListByRepo(ctx, cfg.Owner, cfg.Repo, &github.IssueListByRepoOptions{State: "open"})
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, e := range list {
 		if e.Body != nil {
 			cmdstring := ParseIssue(*e.Body)
-			if cmdstring == ""{
+			if cmdstring == "" {
 				continue
 			}
 			cmd := exec.Command("bash", "-c", cmdstring)
