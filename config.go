@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
@@ -32,6 +33,7 @@ func GetPayload(eventPath string) (Payload, error) {
 	if err != nil {
 		return Payload{}, err
 	}
+	log.Println(string(bytes))
 	var payload Payload
 	if err := json.Unmarshal(bytes, &payload); err != nil {
 		return Payload{}, err
